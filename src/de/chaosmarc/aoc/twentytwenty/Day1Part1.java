@@ -19,9 +19,7 @@ public class Day1Part1 {
     public static void main(String[] args) {
         for (int i = 0; i < INPUT.length; i++) {
             for (int j = i + 1; j < INPUT.length; j++) {
-                int sum = INPUT[i] + INPUT[j];
-                System.out.println(INPUT[i] + " + " + INPUT[j] + " = " + sum);
-                if (sum == 2020) {
+                if (INPUT[i] + INPUT[j] == 2020) {
                     System.out.println("Solution: " + (INPUT[i] * INPUT[j]));
                     return;
                 }
