@@ -114,14 +114,10 @@ public class Day3Part1 {
 
     public static void main(String[] args) {
         int trees = 0;
-        int y = 0;
+        int x = 0;
         for (int i = 1; i < INPUT.length; i++) {
-            String input = INPUT[i];
-            y += 3;
-            if (y > input.length() - 1) {
-                y -= input.length();
-            }
-            if (input.charAt(y) == '#') {
+            x = (x + 3) % (INPUT[i].length());
+            if (INPUT[i].charAt(x) == '#') {
                 trees++;
             }
         }

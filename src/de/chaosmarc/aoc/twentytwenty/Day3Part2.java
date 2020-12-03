@@ -119,10 +119,7 @@ public class Day3Part2 {
             int trees = 0;
             int x = 0;
             for (int i = slope[1]; i < INPUT.length; i += slope[1]) {
-                x += slope[0];
-                if (x > INPUT[i].length() - 1) {
-                    x -= INPUT[i].length();
-                }
+                x = (x + slope[0]) % (INPUT[i].length());
                 if (INPUT[i].charAt(x) == '#') {
                     trees++;
                 }
