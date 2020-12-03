@@ -1,7 +1,5 @@
 package de.chaosmarc.aoc.twentysixteen;
 
-import java.util.Arrays;
-
 public class Day1Part1 {
 
     private static final String[] INPUT = //new String[]{"R5", "L5", "R5", "R3"};
