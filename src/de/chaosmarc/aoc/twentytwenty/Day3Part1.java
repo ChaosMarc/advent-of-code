@@ -113,14 +113,18 @@ public class Day3Part1 {
             ".#............#....#...##.##..#", "..##..........#...........#..#.", "..#..##..#....#..#.#..#..#..#.."};
 
     public static void main(String[] args) {
+        System.out.println("Solution: " + countTrees(3, 1));
+    }
+
+    public static int countTrees(int right, int down) {
         int trees = 0;
-        int x = 0;
-        for (int i = 1; i < INPUT.length; i++) {
-            x = (x + 3) % (INPUT[i].length());
-            if (INPUT[i].charAt(x) == '#') {
+        int pos = 0;
+        for (int row = down; row < INPUT.length; row += down) {
+            pos = (pos + right) % (INPUT[row].length());
+            if (INPUT[row].charAt(pos) == '#') {
                 trees++;
             }
         }
-        System.out.println("Solution: " + trees);
+        return trees;
     }
 }

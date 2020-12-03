@@ -116,15 +116,7 @@ public class Day3Part2 {
         int result = 1;
         int[][] slopes = new int[][] {{1, 1}, {3, 1}, {5, 1}, {7, 1}, {1, 2}};
         for (int[] slope : slopes) {
-            int trees = 0;
-            int x = 0;
-            for (int i = slope[1]; i < INPUT.length; i += slope[1]) {
-                x = (x + slope[0]) % (INPUT[i].length());
-                if (INPUT[i].charAt(x) == '#') {
-                    trees++;
-                }
-            }
-            result *= trees;
+            result *= Day3Part1.countTrees(slope[0], slope[1]);
         }
         System.out.println("Solution: " + result);
     }
