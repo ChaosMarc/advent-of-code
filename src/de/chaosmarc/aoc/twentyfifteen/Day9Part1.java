@@ -7,8 +7,7 @@ import java.util.*;
 public class Day9Part1 {
     public static void main(String[] args) throws FileNotFoundException {
         Map<List<String>, Integer> distanceMap = createDistanceMap();
-        Set<String> locations = createLocationList(distanceMap);
-        List<List<String>> permutations = permute(locations.toArray(new String[0]));
+        List<List<String>> permutations = createPermutations(distanceMap);
 
         int shortestRoute = Integer.MAX_VALUE;
         for (List<String> permutation : permutations) {
@@ -61,7 +60,8 @@ public class Day9Part1 {
     }
 
     // https://www.programcreek.com/2013/02/leetcode-permutations-java/
-    public static List<List<String>> permute(String[] list) {
+    public static List<List<String>> createPermutations(Map<List<String>, Integer> distanceMap) {
+        Set<String> list = createLocationList(distanceMap);
         List<List<String>> result = new ArrayList<>();
 
         //start from an empty list
