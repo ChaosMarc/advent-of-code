@@ -4,13 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class Day6Part2 {
     public static void main(String[] args) throws IOException {
         int result = 0;
+        int count = 0;
         int groupSize = 0;
         Map<String, Integer> answers = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(
@@ -19,23 +18,19 @@ public class Day6Part2 {
             do {
                 data = reader.readLine();
                 if (data == null || data.equals("")) {
-                    Set<String> sameAnswers = new HashSet<>();
                     for (Map.Entry<String, Integer> a : answers.entrySet()) {
                         if (a.getValue() == groupSize) {
-                            sameAnswers.add(a.getKey());
+                            count++;
                         }
                     }
-                    result += sameAnswers.size();
+                    result += count;
                     answers.clear();
                     groupSize = 0;
+                    count = 0;
                     continue;
                 }
                 for (String s : data.split("")) {
-                    if (answers.containsKey(s)) {
-                        answers.put(s, answers.get(s) + 1);
-                    } else {
-                        answers.put(s, 1);
-                    }
+                    answers.merge(s, 1, Integer::sum);
                 }
                 groupSize++;
             } while (data != null);

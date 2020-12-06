@@ -11,7 +11,6 @@ public class Day6Part1 {
     public static void main(String[] args) throws IOException {
         int result = 0;
         Set<String> answers = new HashSet<>();
-
         try (BufferedReader reader = new BufferedReader(
             new FileReader("src/de/chaosmarc/aoc/twentytwenty/input/Day6.txt"))) {
             String data;
@@ -19,7 +18,6 @@ public class Day6Part1 {
                 data = reader.readLine();
                 if (data == null || data.equals("")) {
                     result += answers.size();
-                    System.out.println(answers.size() + " answers: " + answers);
                     answers.clear();
                 } else {
                     answers.addAll(Arrays.asList(data.split("")));

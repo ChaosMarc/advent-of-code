@@ -210,9 +210,8 @@ public class Day5Part1 {
         for (String input : INPUT) {
             boolean check1 = false;
             int count = 0;
-            for (int i = 0; i < input.length(); i++) {
-                if ((input.charAt(i) == 'a' || input.charAt(i) == 'e' || input.charAt(i) == 'i'
-                    || input.charAt(i) == 'o' || input.charAt(i) == 'u') && ++count == 3) {
+            for (String s : input.split("")) {
+                if (s.matches("[aeiou]") && ++count == 3) {
                     check1 = true;
                     break;
                 }
