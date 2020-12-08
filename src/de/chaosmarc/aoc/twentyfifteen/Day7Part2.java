@@ -4,15 +4,23 @@ import de.chaosmarc.aoc.Helper;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
-public class Day7Part1 {
+public class Day7Part2 {
     private static final HashMap<String, String> CIRCUIT = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
-        for (String s : Helper.readInput(2015, 7)) {
+        List<String> input = Helper.readInput(2015, 7);
+        for (String s : input) {
             String[] instruction = s.split(" -> ");
             CIRCUIT.put(instruction[1], s);
         }
+        int a = getSignal(CIRCUIT.get("a"));
+        for (String s : input) {
+            String[] instruction = s.split(" -> ");
+            CIRCUIT.put(instruction[1], s);
+        }
+        CIRCUIT.put("b", a + " -> b");
         System.out.println("Solution: " + getSignal(CIRCUIT.get("a")));
     }
 
