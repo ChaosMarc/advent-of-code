@@ -1,7 +1,7 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import de.chaosmarc.aoc.Helper;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,27 +9,24 @@ import java.util.Map;
 public class Day7Part2 {
     public static void main(String[] args) throws IOException {
         Map<String, Map<String, Integer>> bagMap = new HashMap<>();
-        FileReader fileReader = new FileReader("src/de/chaosmarc/aoc/twentytwenty/input/Day7.txt");
-        try (BufferedReader reader = new BufferedReader(fileReader)) {
-            reader.lines().forEach(line -> {
-                String[] split = line.replaceAll("bag[s]*\\.*", "").split(" contain ");
-                String key = split[0].trim();
-                for (String s : split[1].split(",")) {
-                    String val = s.substring(2).trim();
-                    String amountStr = s.substring(0, 2).trim();
-                    if (amountStr.equals("no")) {
-                        continue;
-                    }
-                    int amount = Integer.parseInt(amountStr);
-                    if (bagMap.containsKey(key)) {
-                        bagMap.get(key).merge(val, amount, Integer::sum);
-                    } else {
-                        Map<String, Integer> map = new HashMap<>();
-                        map.put(val, amount);
-                        bagMap.put(key, map);
-                    }
+        for (String line : Helper.readInput(2020, 7)) {
+            String[] split = line.replaceAll("bag[s]*\\.*", "").split(" contain ");
+            String key = split[0].trim();
+            for (String s : split[1].split(",")) {
+                String val = s.substring(2).trim();
+                String amountStr = s.substring(0, 2).trim();
+                if (amountStr.equals("no")) {
+                    continue;
                 }
-            });
+                int amount = Integer.parseInt(amountStr);
+                if (bagMap.containsKey(key)) {
+                    bagMap.get(key).merge(val, amount, Integer::sum);
+                } else {
+                    Map<String, Integer> map = new HashMap<>();
+                    map.put(val, amount);
+                    bagMap.put(key, map);
+                }
+            }
         }
         System.out.println("Solution: " + countBags(bagMap, "shiny gold"));
     }

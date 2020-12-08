@@ -1,11 +1,12 @@
 package de.chaosmarc.aoc.twentyfifteen;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import de.chaosmarc.aoc.Helper;
+
+import java.io.IOException;
 import java.util.*;
 
 public class Day9Part1 {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         Map<List<String>, Integer> distanceMap = createDistanceMap();
         List<List<String>> permutations = createPermutations(distanceMap);
 
@@ -30,21 +31,18 @@ public class Day9Part1 {
         return routeDistance;
     }
 
-    public static Map<List<String>, Integer> createDistanceMap() throws FileNotFoundException {
+    public static Map<List<String>, Integer> createDistanceMap() throws IOException {
         Map<List<String>, Integer> distances = new HashMap<>();
-        File myObj = new File("src/de/chaosmarc/aoc/twentyfifteen/input/Day9.txt");
-        try (Scanner myReader = new Scanner(myObj)) {
-            while (myReader.hasNextLine()) {
-                String[] data = myReader.nextLine().split(" ");
-                List<String> distance = new ArrayList<>();
-                distance.add(data[0]);
-                distance.add(data[2]);
-                distances.put(distance, Integer.parseInt(data[4]));
-                distance = new ArrayList<>();
-                distance.add(data[2]);
-                distance.add(data[0]);
-                distances.put(distance, Integer.parseInt(data[4]));
-            }
+        for (String data : Helper.readInput(2015, 9)) {
+            String[] split = data.split(" ");
+            List<String> distance = new ArrayList<>();
+            distance.add(split[0]);
+            distance.add(split[2]);
+            distances.put(distance, Integer.parseInt(split[4]));
+            distance = new ArrayList<>();
+            distance.add(split[2]);
+            distance.add(split[0]);
+            distances.put(distance, Integer.parseInt(split[4]));
         }
         return distances;
     }

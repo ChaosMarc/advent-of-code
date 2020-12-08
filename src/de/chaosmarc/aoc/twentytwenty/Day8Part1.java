@@ -1,23 +1,15 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import de.chaosmarc.aoc.Helper;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Day8Part1 {
 
     public static void main(String[] args) throws IOException {
-        run(readInput());
-    }
-
-    public static List<String> readInput() throws IOException {
-        FileReader fileReader = new FileReader("src/de/chaosmarc/aoc/twentytwenty/input/Day8.txt");
-        try (BufferedReader reader = new BufferedReader(fileReader)) {
-            return reader.lines().collect(Collectors.toList());
-        }
+        run(Helper.readInput(2020, 8));
     }
 
     public static boolean run(List<String> instructions) {
