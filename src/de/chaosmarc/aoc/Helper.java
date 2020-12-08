@@ -11,7 +11,15 @@ public class Helper {
     }
 
     public static List<String> readInput(int year, int day) throws IOException {
-        FileReader fileReader = new FileReader("input/" + year + "/Day" + day + ".txt");
+        return readInput(year, day, false);
+    }
+
+    public static List<String> readInput(int year, int day, boolean example) throws IOException {
+        String fileName = "input/" + year + "/Day" + day + ".txt";
+        if (example) {
+            fileName = "input/" + year + "/Day" + day + ".example.txt";
+        }
+        FileReader fileReader = new FileReader(fileName);
         try (BufferedReader reader = new BufferedReader(fileReader)) {
             return reader.lines().collect(Collectors.toList());
         }
