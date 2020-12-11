@@ -7,8 +7,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Day11Part1 {
+    private static final int[] ADJACENT = new int[] {-1, 0, 1};
 
     public static void main(String[] args) throws IOException {
+        System.out.println("Solution: " + Day11Part1.run(Day11Part1.createSeatMatrix(), 4, true));
+    }
+
+    public static int run(int[][] seats, int threshold, boolean onlySurrounding) {
+        int occupiedSeats = 0;
+        int prevOccupiedSeats;
+        do {
+            List<int[]> seatsToOccupy = new ArrayList<>();
+            List<int[]> seatsToClear = new ArrayList<>();
+            for (int y = 0; y < seats.length; y++) {
+                for (int x = 0; x < seats[y].length; x++) {
+                    int occupiedAdjacentSeats = getOccupiedAdjacentSeats(seats, x, y, onlySurrounding);
+                    if (seats[y][x] == '#' && occupiedAdjacentSeats >= threshold) {
+                        seatsToClear.add(new int[] {y, x});
+                    } else if (seats[y][x] == 'L' && occupiedAdjacentSeats == 0) {
+                        seatsToOccupy.add(new int[] {y, x});
+                    }
+                }
+            }
+            fillSeats(seats, seatsToOccupy, '#');
+            fillSeats(seats, seatsToClear, 'L');
+            prevOccupiedSeats = occupiedSeats;
+            occupiedSeats = occupiedSeats + seatsToOccupy.size() - seatsToClear.size();
+        } while (prevOccupiedSeats != occupiedSeats);
+        return occupiedSeats;
+    }
+
+    public static int getOccupiedAdjacentSeats(int[][] seats, int x, int y, boolean onlySurrounding) {
+        int occupiedAdjacentSeats = 0;
+        for (int addX : ADJACENT) {
+            for (int addY : ADJACENT) {
+                occupiedAdjacentSeats += isNextSeatOccupied(seats, x, y, addX, addY, onlySurrounding);
+            }
+        }
+        return occupiedAdjacentSeats;
+    }
+
+    public static int isNextSeatOccupied(int[][] seats, int x, int y, int addX, int addY, boolean onlySurrounding) {
+        int nextX = x + addX;
+        int nextY = y + addY;
+        if (nextX < 0 || nextY < 0 || (nextX == x && nextY == y) || nextX >= seats[y].length || nextY >= seats.length
+            || seats[nextY][nextX] == 'L') {
+            return 0;
+        } else if (seats[nextY][nextX] == '#') {
+            return 1;
+        } else {
+            if (onlySurrounding) {
+                return 0;
+            } else {
+                return isNextSeatOccupied(seats, nextX, nextY, addX, addY, false);
+            }
+        }
+    }
+
+    public static int[][] createSeatMatrix() throws IOException {
         List<String> input = Helper.readInput(2020, 11);
         int[][] seats = new int[input.get(0).length()][input.size()];
         for (int y = 0; y < input.size(); y++) {
@@ -17,46 +73,12 @@ public class Day11Part1 {
                 seats[x][y] = line.charAt(x);
             }
         }
-        int prevOccupiedSeats = -1;
-        int occupiedSeats = 0;
-        List<int[]> seatsToOccupy = new ArrayList<>();
-        List<int[]> seatsToClear = new ArrayList<>();
-        do {
-            seatsToOccupy.clear();
-            seatsToClear.clear();
-            for (int y = 0; y < seats.length; y++) {
-                for (int x = 0; x < seats[y].length; x++) {
-                    int occupiedAdjacentSeats = getOccupiedAdjacentSeats(seats, x, y);
-                    if (seats[y][x] == '#' && occupiedAdjacentSeats >= 4) {
-                        seatsToClear.add(new int[] {y, x});
-                    } else if (seats[y][x] == 'L' && occupiedAdjacentSeats == 0) {
-                        seatsToOccupy.add(new int[] {y, x});
-                    }
-                }
-            }
-            for (int[] seat : seatsToOccupy) {
-                seats[seat[0]][seat[1]] = '#';
-            }
-            for (int[] seat : seatsToClear) {
-                seats[seat[0]][seat[1]] = 'L';
-            }
-            prevOccupiedSeats = occupiedSeats;
-            occupiedSeats = occupiedSeats + seatsToOccupy.size() - seatsToClear.size();
-        } while (prevOccupiedSeats != occupiedSeats);
-
-        System.out.println("Solution: " + occupiedSeats);
+        return seats;
     }
 
-    public static int getOccupiedAdjacentSeats(int[][] seats, int x, int y) {
-        int occupiedAdjacentSeats = 0;
-        for (int i = x - 1; i <= x + 1; i++) {
-            for (int j = y - 1; j <= y + 1; j++) {
-                occupiedAdjacentSeats +=
-                    (i < 0 || j < 0 || (i == x && j == y) || i >= seats[y].length || j >= seats.length
-                        || seats[j][i] != '#') ? 0 : 1;
-            }
+    public static void fillSeats(int[][] seats, List<int[]> seatsToFill, int occupationStatus) {
+        for (int[] seat : seatsToFill) {
+            seats[seat[0]][seat[1]] = occupationStatus;
         }
-
-        return occupiedAdjacentSeats;
     }
 }
