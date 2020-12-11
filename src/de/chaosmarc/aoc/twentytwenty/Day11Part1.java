@@ -21,10 +21,14 @@ public class Day11Part1 {
             List<int[]> seatsToClear = new ArrayList<>();
             for (int y = 0; y < seats.length; y++) {
                 for (int x = 0; x < seats[y].length; x++) {
+                    int seat = seats[y][x];
+                    if (seat == '.') {
+                        continue;
+                    }
                     int occupiedAdjacentSeats = getOccupiedAdjacentSeats(seats, x, y, onlySurrounding);
-                    if (seats[y][x] == '#' && occupiedAdjacentSeats >= threshold) {
+                    if (seat == '#' && occupiedAdjacentSeats >= threshold) {
                         seatsToClear.add(new int[] {y, x});
-                    } else if (seats[y][x] == 'L' && occupiedAdjacentSeats == 0) {
+                    } else if (seat == 'L' && occupiedAdjacentSeats == 0) {
                         seatsToOccupy.add(new int[] {y, x});
                     }
                 }
