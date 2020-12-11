@@ -13,7 +13,7 @@ public class Day11Part1 {
         System.out.println("Solution: " + Day11Part1.run(Day11Part1.createSeatMatrix(), 4, true));
     }
 
-    public static int run(int[][] seats, int threshold, boolean onlySurrounding) {
+    public static int run(char[][] seats, int threshold, boolean onlySurrounding) {
         int occupiedSeats = 0;
         int prevOccupiedSeats;
         do {
@@ -41,7 +41,7 @@ public class Day11Part1 {
         return occupiedSeats;
     }
 
-    public static int getOccupiedAdjacentSeats(int[][] seats, int x, int y, boolean onlySurrounding) {
+    public static int getOccupiedAdjacentSeats(char[][] seats, int x, int y, boolean onlySurrounding) {
         int occupiedAdjacentSeats = 0;
         for (int addX : ADJACENT) {
             for (int addY : ADJACENT) {
@@ -51,7 +51,7 @@ public class Day11Part1 {
         return occupiedAdjacentSeats;
     }
 
-    public static int isNextSeatOccupied(int[][] seats, int x, int y, int addX, int addY, boolean onlySurrounding) {
+    public static int isNextSeatOccupied(char[][] seats, int x, int y, int addX, int addY, boolean onlySurrounding) {
         int nextX = x + addX;
         int nextY = y + addY;
         if (nextX < 0 || nextY < 0 || (nextX == x && nextY == y) || nextX >= seats[y].length || nextY >= seats.length
@@ -60,17 +60,13 @@ public class Day11Part1 {
         } else if (seats[nextY][nextX] == '#') {
             return 1;
         } else {
-            if (onlySurrounding) {
-                return 0;
-            } else {
-                return isNextSeatOccupied(seats, nextX, nextY, addX, addY, false);
-            }
+            return onlySurrounding ? 0 : isNextSeatOccupied(seats, nextX, nextY, addX, addY, false);
         }
     }
 
-    public static int[][] createSeatMatrix() throws IOException {
+    public static char[][] createSeatMatrix() throws IOException {
         List<String> input = Helper.readInput(2020, 11);
-        int[][] seats = new int[input.get(0).length()][input.size()];
+        char[][] seats = new char[input.get(0).length()][input.size()];
         for (int y = 0; y < input.size(); y++) {
             String line = input.get(y);
             for (int x = 0; x < line.length(); x++) {
@@ -80,7 +76,7 @@ public class Day11Part1 {
         return seats;
     }
 
-    public static void fillSeats(int[][] seats, List<int[]> seatsToFill, int occupationStatus) {
+    public static void fillSeats(char[][] seats, List<int[]> seatsToFill, char occupationStatus) {
         for (int[] seat : seatsToFill) {
             seats[seat[0]][seat[1]] = occupationStatus;
         }
