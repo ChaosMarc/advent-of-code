@@ -10,7 +10,9 @@ public class Day4Part1 {
     public static void main(String[] args) throws IOException {
         int result = 0;
         List<String> fields = new ArrayList<>();
-        for (String data : Helper.readInput(2020, 4)) {
+        List<String> input = Helper.readInput(2020, 4);
+        input.add("");
+        for (String data : input) {
             if (data.equals("")) {
                 if (fields.size() == 7) {
                     result++;
