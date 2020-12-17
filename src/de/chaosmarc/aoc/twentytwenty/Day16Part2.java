@@ -51,20 +51,11 @@ public class Day16Part2 {
                     }
                 }
             }
-
-            for (Map.Entry<Integer, List<Integer>> integerIntegerEntry : ruleMapping.entrySet()) {
-                if (integerIntegerEntry.getValue().size() == 1) {
-                    finalRuleMapping.put(integerIntegerEntry.getKey(), integerIntegerEntry.getValue());
-                }
-            }
+            finalRuleMapping.putAll(ruleMapping.entrySet().stream().filter(x -> x.getValue().size() == 1)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
         }
 
-        long result = 1;
-        for (int i = 0; i < 6; i++) {
-            int field = finalRuleMapping.get(i).get(0);
-            result *= validTickets.get(0).get(field);
-        }
-
-        System.out.println("Solution: " + result);
+        System.out.println("Solution: " + finalRuleMapping.entrySet().stream().limit(6)
+            .mapToLong(i -> validTickets.get(0).get(i.getValue().get(0))).reduce(1, (a, b) -> a * b));
     }
 }
