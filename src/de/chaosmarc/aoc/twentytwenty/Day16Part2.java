@@ -5,6 +5,7 @@ import de.chaosmarc.aoc.Helper;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Day16Part2 {
     public static void main(String[] args) throws IOException {
@@ -30,32 +31,33 @@ public class Day16Part2 {
 
         IntSummaryStatistics stats = rules.stream().flatMap(List::stream).collect(Collectors.toList()).stream()
             .collect(Collectors.summarizingInt(Integer::intValue));
-        List<List<Integer>> validTickets =
-            tickets.stream().filter(t -> t.stream().noneMatch(f -> f < stats.getMin() || f > stats.getMax()))
-                .collect(Collectors.toList());
+        tickets = tickets.stream().filter(t -> t.stream().noneMatch(f -> f < stats.getMin() || f > stats.getMax()))
+            .collect(Collectors.toList());
+        List<Integer> myTicket = tickets.get(0);
+        int fieldCount = myTicket.size();
+        List<List<Integer>> finalTickets = tickets;
 
-        Map<Integer, List<Integer>> finalRuleMapping = new HashMap<>(); // rulePos, fieldPos
-        while (finalRuleMapping.size() < tickets.get(0).size()) {
-            Map<Integer, List<Integer>> ruleMapping = new HashMap<>();
-            for (int i1 = 0; i1 < rules.size(); i1++) {
-                int i = i1;
-                for (int j1 = 0; j1 < tickets.get(0).size(); j1++) {
-                    int j = j1;
-                    if (finalRuleMapping.values().stream().noneMatch(x -> x.get(0) == j) && validTickets.stream()
-                        .allMatch(
-                            ticket -> (ticket.get(j) >= rules.get(i).get(0) && ticket.get(j) <= rules.get(i).get(1))
-                                || (ticket.get(j) >= rules.get(i).get(2) && ticket.get(j) <= rules.get(i).get(3)))) {
-                        List<Integer> rm = ruleMapping.containsKey(i1) ? ruleMapping.get(i1) : new ArrayList<>();
-                        rm.add(j);
-                        ruleMapping.put(i1, rm);
-                    }
-                }
-            }
-            finalRuleMapping.putAll(ruleMapping.entrySet().stream().filter(x -> x.getValue().size() == 1)
+        Map<Integer, Integer> finalRuleMapping = new HashMap<>(); // rulePos, fieldPos
+        while (finalRuleMapping.size() < fieldCount) {
+            Map<Integer, Integer> ruleMapping = new HashMap<>(); // rulePos, possible fieldPos
+            rules.forEach(rule -> {
+                int rulePos = rules.indexOf(rule);
+                IntStream.rangeClosed(0, fieldCount - 1).filter(
+                    fieldPos -> finalRuleMapping.values().stream().noneMatch(r -> r == fieldPos) && finalTickets
+                        .stream().allMatch(t -> isValid(t.get(fieldPos), rule)))
+                    .forEach(fieldPos -> ruleMapping.put(rulePos, ruleMapping.containsKey(rulePos) ? -1 : fieldPos));
+            });
+
+            finalRuleMapping.putAll(ruleMapping.entrySet().stream().filter(x -> x.getValue() != -1)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
         }
 
-        System.out.println("Solution: " + finalRuleMapping.entrySet().stream().limit(6)
-            .mapToLong(i -> validTickets.get(0).get(i.getValue().get(0))).reduce(1, (a, b) -> a * b));
+        System.out.println(
+            "Solution: " + finalRuleMapping.entrySet().stream().limit(6).mapToLong(i -> myTicket.get(i.getValue()))
+                .reduce(1, (a, b) -> a * b));
+    }
+
+    public static boolean isValid(int value, List<Integer> rule) {
+        return (value >= rule.get(0) && value <= rule.get(1)) || (value >= rule.get(2) && value <= rule.get(3));
     }
 }
