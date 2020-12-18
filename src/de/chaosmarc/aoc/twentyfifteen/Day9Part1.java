@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentyfifteen;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.*;
@@ -33,7 +33,7 @@ public class Day9Part1 {
 
     public static Map<List<String>, Integer> createDistanceMap() throws IOException {
         Map<List<String>, Integer> distances = new HashMap<>();
-        for (String data : Helper.readInput(2015, 9)) {
+        for (String data : InputReader.read(2015, 9)) {
             String[] split = data.split(" ");
             List<String> distance = new ArrayList<>();
             distance.add(split[0]);

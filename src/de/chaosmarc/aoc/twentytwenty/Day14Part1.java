@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -12,7 +12,7 @@ public class Day14Part1 {
     public static final int BITMASK_LENGTH = 36;
 
     public static void main(String[] args) throws IOException {
-        List<String> input = Helper.readInput(2020, 14);
+        List<String> input = InputReader.read(2020, 14);
         char[] mask =
             new char[] {'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
                 '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'};

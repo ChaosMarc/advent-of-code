@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -26,7 +26,7 @@ public class Day10Part1 {
 
     public static List<Integer> getModifiedInput() throws IOException {
         List<Integer> input =
-            Helper.readInput(2020, 10).stream().map(Integer::valueOf).sorted().collect(Collectors.toList());
+            InputReader.read(2020, 10).stream().map(Integer::valueOf).sorted().collect(Collectors.toList());
         Collections.reverse(input);
         input.add(0); // outlet
         Collections.reverse(input);

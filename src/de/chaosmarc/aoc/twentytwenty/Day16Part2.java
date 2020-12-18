@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.*;
@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 public class Day16Part2 {
     public static void main(String[] args) throws IOException {
-        List<String> input = Helper.readInput(2020, 16);
+        List<String> input = InputReader.read(2020, 16);
         List<List<Integer>> tickets = new ArrayList<>();
         List<List<Integer>> rules = new ArrayList<>();
 

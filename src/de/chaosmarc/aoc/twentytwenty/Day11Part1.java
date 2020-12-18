@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class Day11Part1 {
     }
 
     public static char[][] createSeatMatrix() throws IOException {
-        List<String> input = Helper.readInput(2020, 11);
+        List<String> input = InputReader.read(2020, 11);
         char[][] seats = new char[input.get(0).length()][input.size()];
         for (int y = 0; y < input.size(); y++) {
             String line = input.get(y);

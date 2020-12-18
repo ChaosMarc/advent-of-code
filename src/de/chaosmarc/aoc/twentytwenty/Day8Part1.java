@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 public class Day8Part1 {
 
     public static void main(String[] args) throws IOException {
-        run(Helper.readInput(2020, 8));
+        run(InputReader.read(2020, 8));
     }
 
     public static boolean run(List<String> instructions) {

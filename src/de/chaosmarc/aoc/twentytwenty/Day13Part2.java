@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class Day13Part2 {
     //Not Working in a reasonable time...
     public static void main(String[] args) throws IOException {
-        List<String> input = Helper.readInput(2020, 13);
+        List<String> input = InputReader.read(2020, 13);
         long curTime = 100000000000000L;
         List<String> busLines = Arrays.stream(input.get(1).split(",")).collect(Collectors.toList());
         Map<Integer, Integer> buss = new HashMap<>();

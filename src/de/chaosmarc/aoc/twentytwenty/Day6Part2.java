@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ public class Day6Part2 {
         int count = 0;
         int groupSize = 0;
         Map<String, Integer> answers = new HashMap<>();
-        List<String> input = Helper.readInput(2020, 6);
+        List<String> input = InputReader.read(2020, 6);
         for (int i = 0; i <= input.size(); i++) {
             if (i == input.size() || input.get(i).equals("")) {
                 for (Map.Entry<String, Integer> a : answers.entrySet()) {

@@ -1,13 +1,13 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.List;
 
 public class Day12Part2 {
     public static void main(String[] args) throws IOException {
-        List<String> input = Helper.readInput(2020, 12);
+        List<String> input = InputReader.read(2020, 12);
         int[] ship = new int[] {0, 0};
         int[] waypoint = new int[] {10, 1};
         for (String s : input) {

@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentyfifteen;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Day7Part1 {
     public static void main(String[] args) throws IOException {
-        System.out.println("Solution: " + getSignal(buildCircuit(Helper.readInput(2015, 7)), "a"));
+        System.out.println("Solution: " + getSignal(buildCircuit(InputReader.read(2015, 7)), "a"));
     }
 
     public static Map<String, String[]> buildCircuit(List<String> input) {

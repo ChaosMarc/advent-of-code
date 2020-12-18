@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +11,7 @@ public class Day3Part1 {
     }
 
     public static int countTrees(int right, int down) throws IOException {
-        List<String> input = Helper.readInput(2020, 3);
+        List<String> input = InputReader.read(2020, 3);
         int trees = 0;
         int pos = 0;
         for (int row = down; row < input.size(); row += down) {

@@ -1,13 +1,13 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.List;
 
 public class Day8Part2 {
     public static void main(String[] args) throws IOException {
-        List<String> instructions = Helper.readInput(2020, 8);
+        List<String> instructions = InputReader.read(2020, 8);
         for (int i = 0; i < instructions.size(); i++) {
             String instruction = instructions.get(i);
             if (instruction.matches("(jmp|nop).*")) {

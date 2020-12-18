@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.Map;
 public class Day7Part2 {
     public static void main(String[] args) throws IOException {
         Map<String, Map<String, Integer>> bagMap = new HashMap<>();
-        for (String line : Helper.readInput(2020, 7)) {
+        for (String line : InputReader.read(2020, 7)) {
             String[] split = line.replaceAll("bag[s]*\\.*", "").split(" contain ");
             String key = split[0].trim();
             for (String s : split[1].split(",")) {

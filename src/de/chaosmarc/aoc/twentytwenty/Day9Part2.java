@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.Helper;
+import de.chaosmarc.aoc.InputReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class Day9Part2 {
 
     public static void main(String[] args) throws IOException {
-        List<Long> input = Helper.readInput(2020, 9).stream().map(Long::valueOf).collect(Collectors.toList());
+        List<Long> input = InputReader.read(2020, 9).stream().map(Long::valueOf).collect(Collectors.toList());
         List<Long> summands = findSummands(input, Day9Part1.findNumber(input));
         System.out.println("Solution: " + (Collections.min(summands) + Collections.max(summands)));
     }
