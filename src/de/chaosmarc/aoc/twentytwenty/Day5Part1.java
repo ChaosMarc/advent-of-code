@@ -1,6 +1,6 @@
 package de.chaosmarc.aoc.twentytwenty;
 
-import de.chaosmarc.aoc.InputReader;
+import de.chaosmarc.aoc.helper.InputReader;
 
 import java.io.IOException;
 
