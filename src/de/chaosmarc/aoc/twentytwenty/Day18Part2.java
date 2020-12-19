@@ -5,7 +5,7 @@ import de.chaosmarc.aoc.helper.InputReader;
 import java.io.IOException;
 import java.util.List;
 
-public class Day18Part1 {
+public class Day18Part2 {
     public static void main(String[] args) throws IOException {
         List<String> input = InputReader.read(2020, 18);
         long result = 0;
@@ -35,43 +35,25 @@ public class Day18Part1 {
             }
             return evaluate(expression);
         } else {
-            int firstOp = getNextOp(expression);
-            long result = Long.parseLong(expression.substring(0, firstOp));
-            int nextOp = firstOp + 1 + getNextOp(expression.substring(firstOp + 1));
-            long parsed;
-            while (firstOp != nextOp) {
-                parsed = Long.parseLong(expression.substring(firstOp + 1, nextOp));
-                if (expression.charAt(firstOp) == '+') {
-                    result += parsed;
-                } else {
-                    result *= parsed;
-                }
-                firstOp = nextOp;
-                nextOp = firstOp + 1 + getNextOp(expression.substring(firstOp + 1));
-            }
-
-            parsed = Long.parseLong(expression.substring(firstOp + 1));
-            if (expression.charAt(firstOp) == '+') {
-                result += parsed;
-            } else {
-                result *= parsed;
-            }
-
-            return String.valueOf(result);
+            return String.valueOf(multiply(expression));
         }
     }
 
-    public static int getNextOp(String expression) {
-        int nextOp;
-        int nextPlus = expression.indexOf('+');
-        int nextMulti = expression.indexOf('*');
-        if (nextPlus > -1 && nextMulti > -1) {
-            nextOp = Math.min(expression.indexOf('+'), expression.indexOf('*'));
-        } else if (nextPlus == -1 && nextMulti > -1) {
-            nextOp = nextMulti;
-        } else {
-            nextOp = nextPlus;
+    private static long multiply(String expression) {
+        String[] split = expression.split("\\*");
+        long result = 1;
+        for (String s : split) {
+            result *= add(s);
         }
-        return nextOp;
+        return result;
+    }
+
+    private static long add(String expression) {
+        String[] split = expression.split("\\+");
+        long result = 0;
+        for (String s : split) {
+            result += Long.parseLong(s);
+        }
+        return result;
     }
 }
