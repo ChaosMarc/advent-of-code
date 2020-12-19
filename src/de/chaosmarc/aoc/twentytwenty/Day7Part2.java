@@ -13,18 +13,10 @@ public class Day7Part2 {
             String[] split = line.replaceAll("bag[s]*\\.*", "").split(" contain ");
             String key = split[0].trim();
             for (String s : split[1].split(",")) {
-                String val = s.substring(2).trim();
                 String amountStr = s.substring(0, 2).trim();
-                if (amountStr.equals("no")) {
-                    continue;
-                }
-                int amount = Integer.parseInt(amountStr);
-                if (bagMap.containsKey(key)) {
-                    bagMap.get(key).merge(val, amount, Integer::sum);
-                } else {
-                    Map<String, Integer> map = new HashMap<>();
-                    map.put(val, amount);
-                    bagMap.put(key, map);
+                if (!amountStr.equals("no")) {
+                    bagMap.computeIfAbsent(key, k -> new HashMap<>())
+                        .merge(s.substring(2).trim(), Integer.parseInt(amountStr), Integer::sum);
                 }
             }
         }
